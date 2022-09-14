@@ -5,6 +5,9 @@ import express from "express";
 import cors from "cors";
 import { errors } from "celebrate";
 
+import "@shared/container";
+import "@shared/infra/database/mongoose";
+
 import HandleError from "@shared/errors/HandleError";
 import routes from "./routes";
 
