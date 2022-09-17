@@ -1,10 +1,4 @@
-import { IUserDTO } from "../dtos/UserDTO";
-
-export interface ICreateUserDTO {
-  name: string;
-  email: string;
-  profilePath?: string;
-}
+import { ICreateUserDTO, IUserDTO } from "../dtos/UserDTO";
 
 export default interface IUserRepository {
   create({ name, email, profilePath }: ICreateUserDTO): Promise<IUserDTO>;

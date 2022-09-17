@@ -1,1 +1,2 @@
+import "./credentialRepository";
 import "./userRepository";

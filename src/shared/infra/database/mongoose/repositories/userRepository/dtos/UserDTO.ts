@@ -3,7 +3,12 @@ export interface IUserDTO {
   name: string;
   email: string;
   profilePath?: string;
-  trashed: boolean;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface ICreateUserDTO {
+  name: string;
+  email: string;
+  profilePath?: string;
 }

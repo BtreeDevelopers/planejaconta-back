@@ -1,6 +1,6 @@
 import UUID from "@shared/utils/uuid";
-import { IUserDTO } from "../dtos/UserDTO";
-import IUserRepository, { ICreateUserDTO } from "../models/IUserRepository";
+import { ICreateUserDTO, IUserDTO } from "../dtos/UserDTO";
+import IUserRepository from "../models/IUserRepository";
 import User from "../schemas/User";
 
 export default class UserRepository implements IUserRepository {

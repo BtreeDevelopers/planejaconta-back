@@ -14,14 +14,11 @@ const UserSchema = new Schema(
     },
     email: {
       type: String,
+      unique: true,
       required: true,
     },
     profilePath: {
       type: String,
-    },
-    trashed: {
-      type: Boolean,
-      default: false,
     },
   },
   {
