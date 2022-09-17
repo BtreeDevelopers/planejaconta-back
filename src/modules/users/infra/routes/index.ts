@@ -7,4 +7,6 @@ const userRoutes = Router();
 
 userRoutes.post("/", userController.store);
 
+userRoutes.get("/:user_id", userController.find);
+
 export default userRoutes;

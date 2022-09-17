@@ -49,4 +49,10 @@ export default class UserRepository implements IUserRepository {
 
     return !user;
   }
+
+  async findById(_id: string): Promise<IUserDTO | null> {
+    const user = await User.findById(_id);
+
+    return user;
+  }
 }

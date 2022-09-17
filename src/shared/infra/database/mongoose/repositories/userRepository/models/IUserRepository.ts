@@ -15,4 +15,6 @@ export default interface IUserRepository {
   }: ICreateUserWithTransactionDTO): Promise<IUserDTO>;
 
   isEmailAvailable(email: string): Promise<boolean>;
+
+  findById(_id: string): Promise<IUserDTO | null>;
 }
