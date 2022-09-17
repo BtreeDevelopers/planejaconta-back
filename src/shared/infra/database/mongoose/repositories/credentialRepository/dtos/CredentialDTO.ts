@@ -1,3 +1,4 @@
+import { ClientSession } from "mongoose";
 import { IUserDTO } from "../../userRepository/dtos/UserDTO";
 
 export interface ICredentialDTO {
@@ -13,6 +14,12 @@ export interface ICredentialDTO {
 export interface ICreateCredentialDTO {
   userId: string;
   password: string;
+}
+
+export interface ICreateCredentialWithTransactionDTO {
+  userId: string;
+  password: string;
+  session: ClientSession;
 }
 
 export interface IActiveTokenDTO {

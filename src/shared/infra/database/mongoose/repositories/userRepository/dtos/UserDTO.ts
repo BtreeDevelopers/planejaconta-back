@@ -1,3 +1,5 @@
+import { ClientSession } from "mongoose";
+
 export interface IUserDTO {
   _id: string;
   name: string;
@@ -11,4 +13,11 @@ export interface ICreateUserDTO {
   name: string;
   email: string;
   profilePath?: string;
+}
+
+export interface ICreateUserWithTransactionDTO {
+  name: string;
+  email: string;
+  profilePath?: string;
+  session: ClientSession;
 }

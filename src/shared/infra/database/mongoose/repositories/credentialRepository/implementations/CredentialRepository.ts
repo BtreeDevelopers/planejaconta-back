@@ -2,6 +2,7 @@ import UUID from "@shared/utils/uuid";
 import {
   IActiveTokenDTO,
   ICreateCredentialDTO,
+  ICreateCredentialWithTransactionDTO,
   ICredentialDTO,
   IUpdatePasswordDTO,
 } from "../dtos/CredentialDTO";
@@ -20,6 +21,25 @@ export default class CredentialRepository implements ICredentialRepository {
     });
 
     return credential;
+  }
+
+  async createWithTransaction({
+    userId,
+    password,
+    session,
+  }: ICreateCredentialWithTransactionDTO): Promise<ICredentialDTO> {
+    const credential = await Credential.create(
+      [
+        {
+          _id: new UUID().getV4(),
+          userId,
+          password,
+        },
+      ],
+      { session }
+    );
+
+    return credential[0];
   }
 
   async activeToken({ userId, token }: IActiveTokenDTO): Promise<void> {
