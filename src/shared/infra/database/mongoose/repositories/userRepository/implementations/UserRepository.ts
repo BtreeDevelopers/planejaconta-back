@@ -55,4 +55,10 @@ export default class UserRepository implements IUserRepository {
 
     return user;
   }
+
+  async findByEmail(email: string): Promise<IUserDTO | null> {
+    const user = await User.findOne({ email });
+
+    return user;
+  }
 }

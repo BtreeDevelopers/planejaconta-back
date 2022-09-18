@@ -18,4 +18,6 @@ export default interface ICredentialRepository {
   activeToken({ userId, token }: IActiveTokenDTO): Promise<void>;
 
   updatePassword({ token, password }: IUpdatePasswordDTO): Promise<void>;
+
+  findByUserId(userId: string): Promise<ICredentialDTO | null>;
 }

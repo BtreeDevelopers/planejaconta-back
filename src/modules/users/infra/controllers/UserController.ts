@@ -1,3 +1,4 @@
+import AuthUserService from "@modules/users/services/AuthUserService";
 import CreateUserService from "@modules/users/services/CreateUserService";
 import FindUserService from "@modules/users/services/FindUserService";
 import { Request, Response } from "express";
@@ -28,6 +29,16 @@ class UserController {
     }
 
     return response.status(204).end();
+  }
+
+  public async auth(request: Request, response: Response) {
+    const { email, password } = request.body;
+
+    const authUserService = container.resolve(AuthUserService);
+
+    const result = await authUserService.execute({ email, password });
+
+    return response.status(200).json(result);
   }
 }
 

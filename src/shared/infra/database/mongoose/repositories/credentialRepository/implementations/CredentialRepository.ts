@@ -55,4 +55,10 @@ export default class CredentialRepository implements ICredentialRepository {
       { password, isTokenActive: false }
     );
   }
+
+  async findByUserId(userId: string): Promise<ICredentialDTO | null> {
+    const credential = await Credential.findOne({ userId }).select("password");
+
+    return credential;
+  }
 }

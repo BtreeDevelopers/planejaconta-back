@@ -16,5 +16,7 @@ export default interface IUserRepository {
 
   isEmailAvailable(email: string): Promise<boolean>;
 
+  findByEmail(email: string): Promise<IUserDTO | null>;
+
   findById(_id: string): Promise<IUserDTO | null>;
 }
