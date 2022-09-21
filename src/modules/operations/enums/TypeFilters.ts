@@ -1,0 +1,5 @@
+export enum TYPE_FILTERS {
+  DATE = 0,
+  OPERATION_TYPE = 1,
+  CLASSIFICATION = 2,
+}

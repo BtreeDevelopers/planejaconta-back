@@ -1,4 +1,5 @@
 import CreateOperationService from "@modules/operations/services/CreateOperationService";
+import ListOperationService from "@modules/operations/services/ListOperationService";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
@@ -31,19 +32,22 @@ class OperationController {
     return response.status(201).json({ operation });
   }
 
-  // public async list(request: Request, response: Response) {
-  //   const { user_id } = request.params;
+  public async list(request: Request, response: Response) {
+    const { typeFilter, valueFilter, sort, asc } = request.query;
+    const userId = request.user.id;
 
-  //   const findUserService = container.resolve(FindUserService);
+    const listOperationService = container.resolve(ListOperationService);
 
-  //   const user = await findUserService.execute(user_id);
+    const operations = await listOperationService.execute({
+      typeFilterRaw: typeFilter,
+      valueFilterRaw: valueFilter,
+      sortRaw: sort,
+      ascRaw: asc,
+      userId,
+    });
 
-  //   if (user) {
-  //     return response.status(201).json({ user });
-  //   }
-
-  //   return response.status(204).end();
-  // }
+    return response.status(200).json({ operations });
+  }
 }
 
 export default OperationController;

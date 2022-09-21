@@ -40,7 +40,7 @@ export default class OperationRepository implements IOperationRepository {
     sort,
     asc,
   }: IListOperationDTO): Promise<IOperationDTO[]> {
-    const operations = await Operation.find({ filter }).sort({ [sort]: asc });
+    const operations = await Operation.find(filter).sort({ [sort]: asc });
 
     return operations;
   }

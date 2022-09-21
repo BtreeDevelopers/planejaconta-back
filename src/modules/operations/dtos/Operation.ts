@@ -10,3 +10,11 @@ export interface ICreateOperationServiceDTO {
   operationAt: Date;
   dueAt: Date | undefined;
 }
+
+export interface IListOperationServiceDTO {
+  typeFilterRaw: any;
+  valueFilterRaw: any;
+  sortRaw: any;
+  ascRaw: any;
+  userId: string;
+}

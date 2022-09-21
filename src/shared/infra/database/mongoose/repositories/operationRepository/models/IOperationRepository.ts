@@ -16,5 +16,5 @@ export default interface IOperationRepository {
     dueAt,
   }: ICreateOperationDTO): Promise<IOperationDTO>;
 
-  list({ sort, asc }: IListOperationDTO): Promise<IOperationDTO[]>;
+  list({ filter, sort, asc }: IListOperationDTO): Promise<IOperationDTO[]>;
 }
