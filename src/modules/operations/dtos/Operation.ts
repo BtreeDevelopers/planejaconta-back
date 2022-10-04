@@ -18,3 +18,15 @@ export interface IListOperationServiceDTO {
   ascRaw: any;
   userId: string;
 }
+
+export interface IUpdateOperationServiceDTO {
+  userId: string;
+  operationId: string;
+  operationType: number;
+  name: string;
+  classification: number;
+  type: string;
+  amount: number;
+  operationAt: Date;
+  dueAt: Date | undefined;
+}

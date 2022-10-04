@@ -1,3 +1,4 @@
+import { IUpdateOperationServiceDTO } from "@modules/operations/dtos/Operation";
 import UUID from "@shared/utils/uuid";
 import {
   ICreateOperationDTO,
@@ -43,5 +44,35 @@ export default class OperationRepository implements IOperationRepository {
     const operations = await Operation.find(filter).sort({ [sort]: asc });
 
     return operations;
+  }
+
+  async update({
+    userId,
+    operationId,
+    operationType,
+    name,
+    classification,
+    type,
+    amount,
+    operationAt,
+    dueAt,
+  }: IUpdateOperationServiceDTO): Promise<IOperationDTO | null> {
+    const operation = await Operation.findOneAndUpdate(
+      { _id: operationId, userId },
+      {
+        $set: {
+          operationType,
+          name,
+          classification,
+          type,
+          amount,
+          operationAt,
+          dueAt: dueAt ?? null,
+        },
+      },
+      { new: true }
+    );
+
+    return operation;
   }
 }

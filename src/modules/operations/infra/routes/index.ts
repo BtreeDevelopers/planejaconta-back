@@ -12,4 +12,6 @@ operationRoutes.post("/", operationController.store);
 
 operationRoutes.get("/", operationController.list);
 
+operationRoutes.patch("/:operationId", operationController.update);
+
 export default operationRoutes;

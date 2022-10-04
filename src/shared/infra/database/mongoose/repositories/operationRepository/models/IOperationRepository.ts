@@ -1,3 +1,4 @@
+import { IUpdateOperationServiceDTO } from "@modules/operations/dtos/Operation";
 import {
   ICreateOperationDTO,
   IListOperationDTO,
@@ -17,4 +18,16 @@ export default interface IOperationRepository {
   }: ICreateOperationDTO): Promise<IOperationDTO>;
 
   list({ filter, sort, asc }: IListOperationDTO): Promise<IOperationDTO[]>;
+
+  update({
+    userId,
+    operationId,
+    operationType,
+    name,
+    classification,
+    type,
+    amount,
+    operationAt,
+    dueAt,
+  }: IUpdateOperationServiceDTO): Promise<IOperationDTO | null>;
 }
