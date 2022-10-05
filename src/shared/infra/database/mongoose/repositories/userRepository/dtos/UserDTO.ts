@@ -15,6 +15,12 @@ export interface ICreateUserDTO {
   profilePath?: string;
 }
 
+export interface IUpdateUserDTO {
+  _id: string;
+  name: string;
+  email: string;
+}
+
 export interface ICreateUserWithTransactionDTO {
   name: string;
   email: string;

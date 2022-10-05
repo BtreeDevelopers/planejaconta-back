@@ -2,6 +2,7 @@ import UUID from "@shared/utils/uuid";
 import {
   ICreateUserDTO,
   ICreateUserWithTransactionDTO,
+  IUpdateUserDTO,
   IUserDTO,
 } from "../dtos/UserDTO";
 import IUserRepository from "../models/IUserRepository";
@@ -58,6 +59,16 @@ export default class UserRepository implements IUserRepository {
 
   async findByEmail(email: string): Promise<IUserDTO | null> {
     const user = await User.findOne({ email });
+
+    return user;
+  }
+
+  async update({ _id, name, email }: IUpdateUserDTO): Promise<IUserDTO | null> {
+    const user = await User.findOneAndUpdate(
+      { _id },
+      { name, email },
+      { new: true }
+    );
 
     return user;
   }
