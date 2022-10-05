@@ -2,13 +2,12 @@ import { IUpdateOperationServiceDTO } from "@modules/operations/dtos/Operation";
 import UUID from "@shared/utils/uuid";
 import {
   ICreateOperationDTO,
+  IDeleteOperationDTO,
   IListOperationDTO,
   IOperationDTO,
 } from "../dtos/OperationDTO";
 import IOperationRepository from "../models/IOperationRepository";
-import ICredentialRepository from "../models/IOperationRepository";
 import Operation from "../schemas/Operation";
-import Credential from "../schemas/Operation";
 
 export default class OperationRepository implements IOperationRepository {
   async create({
@@ -72,6 +71,18 @@ export default class OperationRepository implements IOperationRepository {
       },
       { new: true }
     );
+
+    return operation;
+  }
+
+  async hardDelete({
+    userId,
+    operationId,
+  }: IDeleteOperationDTO): Promise<IOperationDTO | null> {
+    const operation = await Operation.findOneAndDelete({
+      _id: operationId,
+      userId,
+    });
 
     return operation;
   }

@@ -1,6 +1,7 @@
 import { IUpdateOperationServiceDTO } from "@modules/operations/dtos/Operation";
 import {
   ICreateOperationDTO,
+  IDeleteOperationDTO,
   IListOperationDTO,
   IOperationDTO,
 } from "../dtos/OperationDTO";
@@ -30,4 +31,9 @@ export default interface IOperationRepository {
     operationAt,
     dueAt,
   }: IUpdateOperationServiceDTO): Promise<IOperationDTO | null>;
+
+  hardDelete({
+    userId,
+    operationId,
+  }: IDeleteOperationDTO): Promise<IOperationDTO | null>;
 }

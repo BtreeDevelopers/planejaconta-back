@@ -30,3 +30,8 @@ export interface IUpdateOperationServiceDTO {
   operationAt: Date;
   dueAt: Date | undefined;
 }
+
+export interface IHardDeleteOperationServiceDTO {
+  userId: string;
+  operationId: string;
+}

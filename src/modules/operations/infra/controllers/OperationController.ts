@@ -1,4 +1,5 @@
 import CreateOperationService from "@modules/operations/services/CreateOperationService";
+import HardDeleteOperationService from "@modules/operations/services/HardDeleteOperationService";
 import ListOperationService from "@modules/operations/services/ListOperationService";
 import UpdateOperationService from "@modules/operations/services/UpdateOperationService";
 import { Request, Response } from "express";
@@ -80,6 +81,23 @@ class OperationController {
     });
 
     return response.status(200).json({ operation });
+  }
+
+  public async hardDelete(request: Request, response: Response) {
+    const userId = request.user.id;
+
+    const { operationId } = request.params;
+
+    const hardDeleteOperationService = container.resolve(
+      HardDeleteOperationService
+    );
+
+    await hardDeleteOperationService.execute({
+      userId,
+      operationId,
+    });
+
+    return response.status(200).end();
   }
 }
 

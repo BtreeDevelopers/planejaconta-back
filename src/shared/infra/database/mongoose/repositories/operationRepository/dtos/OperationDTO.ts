@@ -25,6 +25,11 @@ export interface ICreateOperationDTO {
   dueAt: Date | undefined;
 }
 
+export interface IDeleteOperationDTO {
+  userId: string;
+  operationId: string;
+}
+
 export interface IListOperationDTO {
   filter: any;
   sort: string;
