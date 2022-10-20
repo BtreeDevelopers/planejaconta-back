@@ -26,6 +26,9 @@ const CredentialSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    tokenExpiresIn: {
+      type: Date,
+    },
   },
   {
     timestamps: true,

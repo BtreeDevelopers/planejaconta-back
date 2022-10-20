@@ -42,10 +42,14 @@ export default class CredentialRepository implements ICredentialRepository {
     return credential[0];
   }
 
-  async activeToken({ userId, token }: IActiveTokenDTO): Promise<void> {
+  async activeToken({
+    userId,
+    token,
+    tokenExpiresIn,
+  }: IActiveTokenDTO): Promise<void> {
     await Credential.findOneAndUpdate(
       { userId },
-      { token, isTokenActive: true }
+      { token, isTokenActive: true, tokenExpiresIn }
     );
   }
 
@@ -58,6 +62,15 @@ export default class CredentialRepository implements ICredentialRepository {
 
   async findByUserId(userId: string): Promise<ICredentialDTO | null> {
     const credential = await Credential.findOne({ userId }).select("password");
+
+    return credential;
+  }
+
+  async findByToken(token: string): Promise<ICredentialDTO | null> {
+    const credential = await Credential.findOne({
+      token,
+      isTokenActive: true,
+    }).select("password");
 
     return credential;
   }

@@ -15,9 +15,15 @@ export default interface ICredentialRepository {
     session,
   }: ICreateCredentialWithTransactionDTO): Promise<ICredentialDTO>;
 
-  activeToken({ userId, token }: IActiveTokenDTO): Promise<void>;
+  activeToken({
+    userId,
+    token,
+    tokenExpiresIn,
+  }: IActiveTokenDTO): Promise<void>;
 
   updatePassword({ token, password }: IUpdatePasswordDTO): Promise<void>;
 
   findByUserId(userId: string): Promise<ICredentialDTO | null>;
+
+  findByToken(token: string): Promise<ICredentialDTO | null>;
 }

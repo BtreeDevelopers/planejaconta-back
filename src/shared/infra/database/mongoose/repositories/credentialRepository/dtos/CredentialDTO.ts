@@ -7,6 +7,7 @@ export interface ICredentialDTO {
   password: string;
   token: string;
   isTokenActive: boolean;
+  tokenExpiresIn: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -25,6 +26,7 @@ export interface ICreateCredentialWithTransactionDTO {
 export interface IActiveTokenDTO {
   userId: string;
   token: string;
+  tokenExpiresIn: Date;
 }
 
 export interface IUpdatePasswordDTO {
