@@ -70,7 +70,7 @@ export default class CredentialRepository implements ICredentialRepository {
     const credential = await Credential.findOne({
       token,
       isTokenActive: true,
-    }).select("password");
+    }).select("password tokenExpiresIn");
 
     return credential;
   }
