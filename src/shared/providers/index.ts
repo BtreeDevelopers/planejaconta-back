@@ -1,1 +1,2 @@
 import "./generateJWTProvider";
+import "./mailjetEmailProvider";
