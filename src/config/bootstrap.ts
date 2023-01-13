@@ -3,7 +3,7 @@ import { config } from "dotenv";
 const boot = new Promise((resolve) => {
   switch (process.env.NODE_ENV) {
     case "development":
-      resolve(config({ path: ".env.dev" }));
+      resolve(config({ path: ".env" }));
       resolve(require("./constants"));
       break;
     case "test":

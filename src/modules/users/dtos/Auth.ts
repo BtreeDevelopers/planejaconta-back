@@ -4,7 +4,11 @@ export interface IAuthServiceDTO {
 }
 
 export interface IAuthUserDTO {
-  token: string;
-  userId: string;
-  name: string;
+ 
+  token_planeja: string,
+  _id: string,
+  nome: string,
+  email: string,
+  bauth_token: string,
+  imagemUrl: string
 }
