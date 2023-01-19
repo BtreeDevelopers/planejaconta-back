@@ -25,9 +25,12 @@ export interface ICreateOperationDTO {
   dueAt: Date | undefined;
 }
 
-export interface IDeleteOperationDTO {
+export interface IHardDeleteOperationDTO {
   userId: string;
-  operationId: string;
+}
+
+export interface IDeleteOperationDTO {
+  _id: string;
 }
 
 export interface IListOperationDTO {

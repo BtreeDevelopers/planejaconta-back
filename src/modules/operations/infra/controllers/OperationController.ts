@@ -1,5 +1,6 @@
 import CreateOperationService from "@modules/operations/services/CreateOperationService";
 import CronJobOperationService from "@modules/operations/services/CronJobOperationService";
+import DeleteOperationService from "@modules/operations/services/DeleteOperationService";
 import HardDeleteOperationService from "@modules/operations/services/HardDeleteOperationService";
 import ListOperationService from "@modules/operations/services/ListOperationService";
 import UpdateOperationService from "@modules/operations/services/UpdateOperationService";
@@ -94,9 +95,7 @@ class OperationController {
   }
 
   public async hardDelete(request: Request, response: Response) {
-    const userId = request.user.id;
-
-    const { operationId } = request.params;
+    const { userId } = request.params;
 
     const hardDeleteOperationService = container.resolve(
       HardDeleteOperationService
@@ -104,7 +103,18 @@ class OperationController {
 
     await hardDeleteOperationService.execute({
       userId,
-      operationId,
+    });
+
+    return response.status(200).end();
+  }
+
+  public async delete(request: Request, response: Response) {
+    const { _id } = request.params;
+
+    const deleteOperationService = container.resolve(DeleteOperationService);
+
+    await deleteOperationService.execute({
+      _id,
     });
 
     return response.status(200).end();

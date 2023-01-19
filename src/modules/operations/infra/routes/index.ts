@@ -14,6 +14,8 @@ operationRoutes.get("/", operationController.list);
 
 operationRoutes.patch("/:operationId", operationController.update);
 
-operationRoutes.delete("/:operationId", operationController.hardDelete);
+operationRoutes.delete("/:userId", operationController.hardDelete);
+
+operationRoutes.delete("/delete/:_id", operationController.delete);
 
 export default operationRoutes;
