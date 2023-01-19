@@ -10,17 +10,13 @@ class HardDeleteOperationService {
     private operationRepository: IOperationRepository
   ) {}
 
-  async execute({
-    userId,
-    operationId,
-  }: IHardDeleteOperationServiceDTO): Promise<void> {
+  async execute({ userId }: IHardDeleteOperationServiceDTO): Promise<void> {
     const operation = await this.operationRepository.hardDelete({
       userId,
-      operationId,
     });
 
     if (!operation) {
-      throw new AppError("Operação não encontrada.", 404);
+      throw new AppError("Operações do usuario não encontradas.", 404);
     }
   }
 }

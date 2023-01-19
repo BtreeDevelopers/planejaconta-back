@@ -21,7 +21,6 @@ export interface IListOperationServiceDTO {
 
 export interface ICronJobOperationServiceDTO {}
 
-
 export interface IUpdateOperationServiceDTO {
   userId: string;
   operationId: string;
@@ -36,5 +35,8 @@ export interface IUpdateOperationServiceDTO {
 
 export interface IHardDeleteOperationServiceDTO {
   userId: string;
-  operationId: string;
+}
+
+export interface IDeleteOperationServiceDTO {
+  _id: string;
 }

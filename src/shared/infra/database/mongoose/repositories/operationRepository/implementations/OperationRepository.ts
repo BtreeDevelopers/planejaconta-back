@@ -1,8 +1,13 @@
-import { IUpdateOperationServiceDTO } from "@modules/operations/dtos/Operation";
+import {
+  IDeleteOperationServiceDTO,
+  IUpdateOperationServiceDTO,
+} from "@modules/operations/dtos/Operation";
+import AppError from "@shared/errors/AppError";
 import UUID from "@shared/utils/uuid";
 import {
   ICreateOperationDTO,
   IDeleteOperationDTO,
+  IHardDeleteOperationDTO,
   IListOperationDTO,
   IOperationDTO,
 } from "../dtos/OperationDTO";
@@ -75,15 +80,43 @@ export default class OperationRepository implements IOperationRepository {
     return operation;
   }
 
-  async hardDelete({
-    userId,
-    operationId,
-  }: IDeleteOperationDTO): Promise<IOperationDTO | null> {
-    const operation = await Operation.findOneAndDelete({
-      _id: operationId,
-      userId,
-    });
+  async hardDelete({ userId }: IHardDeleteOperationDTO): Promise<any | null> {
+    try {
+      const operationToDelete = await Operation.deleteMany({
+        userId,
+      });
+      if (!operationToDelete) {
+        console.log("Operation not find by Id");
+        return null;
+      }
+    } catch (error) {
+      console.error(
+        "Error finding Operation by userId and Delete\nError: ",
+        error
+      );
 
-    return operation;
+      throw new AppError(
+        `Error finding Operation by userId and Delete. Error: ${error}`
+      );
+    }
+  }
+
+  async delete({ _id }: IDeleteOperationDTO): Promise<void | null> {
+    try {
+      const operationToDelete = await Operation.findByIdAndDelete({
+        _id,
+      });
+
+      if (!operationToDelete) {
+        console.log("Operation not find by Id");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error finding Operation by Id and Delete\nError: ", error);
+
+      throw new AppError(
+        `Error finding Operation by Id and Delete. Error: ${error}`
+      );
+    }
   }
 }
