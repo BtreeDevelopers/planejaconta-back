@@ -1,4 +1,5 @@
 import CreateOperationService from "@modules/operations/services/CreateOperationService";
+import CronJobOperationService from "@modules/operations/services/CronJobOperationService";
 import HardDeleteOperationService from "@modules/operations/services/HardDeleteOperationService";
 import ListOperationService from "@modules/operations/services/ListOperationService";
 import UpdateOperationService from "@modules/operations/services/UpdateOperationService";
@@ -32,6 +33,15 @@ class OperationController {
     });
 
     return response.status(201).json({ operation });
+  }
+  public async CronJob() {
+    const sort = "dueDate";
+    const cronOperationService = container.resolve(CronJobOperationService);
+    //operationType: number (0 = despesa e 1 = receita)
+    //classification: number (0 = recorrente e 1 = pontual)
+    const operations = await cronOperationService.execute({});
+
+    return true;
   }
 
   public async list(request: Request, response: Response) {

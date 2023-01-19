@@ -19,6 +19,9 @@ export interface IListOperationServiceDTO {
   userId: string;
 }
 
+export interface ICronJobOperationServiceDTO {}
+
+
 export interface IUpdateOperationServiceDTO {
   userId: string;
   operationId: string;
