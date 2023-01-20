@@ -20,7 +20,7 @@ class AuthUserService {
     private generateJWTProvider: IGenerateJWTProvider
   ) {}
 
-  async execute({ email, password }: IAuthServiceDTO): Promise<IAuthUserDTO> {
+  async execute({ token, userId }: IAuthServiceDTO): Promise<IAuthUserDTO> {
     /*
     const user = await this.userRepository.findByEmail(email);
     if (!user) {
@@ -49,34 +49,27 @@ class AuthUserService {
     });
 
     const { zemail, zsenha } = loginUser.parse({ email, password });*/
-
-    const responseLogin = await bauth.post("/login", {
-      email: email,
-      senha: password,
-    });
-
-    const { token, user } = await responseLogin.data;
-
     bauth.defaults.headers.common = {
       Authorization: `bearer ${token}`,
     };
+
     const responseTokenUser = await bauth.get("/user");
 
-    const userFromToken = responseTokenUser.data;
+    const user = responseTokenUser.data;
 
     const token_planeja = await this.generateJWTProvider
       .generate(user._id)
       .catch((_error) => {
         throw new AppError("Falha na autenticação.", 400);
       });
-    return { 
+    return {
       token_planeja: token_planeja,
-      bauth_token:token, 
-      _id: user._id, 
+      bauth_token: token,
+      _id: user._id,
       nome: user.nome,
-      email:user.email,
+      email: user.email,
       imagemUrl: user.imagemUrl,
-   };
+    };
   }
 }
 

@@ -33,11 +33,11 @@ class UserController {
   }
 
   public async auth(request: Request, response: Response) {
-    const { email, password } = request.body;
+    const { token, userId } = request.body;
 
     const authUserService = container.resolve(AuthUserService);
 
-    const result = await authUserService.execute({ email, password });
+    const result = await authUserService.execute({ token, userId });
 
     return response.status(200).json(result);
   }
