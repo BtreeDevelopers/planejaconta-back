@@ -75,12 +75,12 @@ class ListOperationService {
     endDate.setMonth(startDate.getMonth() + 1);
 
     filterGasto = {
-      classification: 0,
+      operationType: 0,
       operationAt: { $gte: startDate, $lt: endDate },
       userId,
     };
     filterGanho = {
-      classification: 1,
+      operationType: 1,
       operationAt: { $gte: startDate, $lt: endDate },
       userId,
     };
@@ -102,7 +102,13 @@ class ListOperationService {
       sort,
       asc: asc === 1 ? 1 : -1,
     });
-    const operation = operationGasto.concat(operationGanho);
+    let operation;
+    if (asc === 1) {
+      operation = operationGasto.concat(operationGanho);
+    } else {
+      operation = operationGanho.concat(operationGasto);
+    }
+
     return operation;
   }
 }
