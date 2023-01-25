@@ -21,29 +21,13 @@ class ListOperationService {
   }: IListOperationServiceDTO): Promise<IOperationDTO[]> {
     const typeFilter = typeFilterRaw?.toString();
     const valueFilter = valueFilterRaw?.toString();
-    const sort = sortRaw?.toString();
+    let sort = sortRaw?.toString();
     const asc = Number(ascRaw);
 
     let filter;
-
+    /*
     switch (Number(typeFilter)) {
       case TYPE_FILTERS.DATE:
-        const dateSplited = valueFilter?.split("-");
-
-        if (!dateSplited) {
-          throw new AppError(
-            "'value_filter' must be a date iso (yyyy-mm-dd).",
-            400
-          );
-        }
-
-        const year = Number(dateSplited[0]);
-        const month = Number(dateSplited[1]) - 1;
-        const startDate = new Date(year, month, 1);
-        const endDate = new Date(year, month, 1);
-        endDate.setMonth(startDate.getMonth() + 1);
-
-        filter = { operationAt: { $gte: startDate, $lt: endDate }, userId };
         break;
 
       case TYPE_FILTERS.OPERATION_TYPE:
@@ -68,14 +52,41 @@ class ListOperationService {
       default:
         filter = { userId };
         break;
+    }*/
+
+    //dataRef: 2023-01-01
+    //orderBy: name|amount| operationAt|dueAt
+    //asc: 0|1
+    const dateSplited = valueFilter?.split("-");
+
+    if (!dateSplited) {
+      throw new AppError(
+        "'value_filter' must be a date iso (yyyy-mm-dd).",
+        400
+      );
     }
 
+    const year = Number(dateSplited[0]);
+    const month = Number(dateSplited[1]) - 1;
+    const startDate = new Date(year, month, 1);
+    const endDate = new Date(year, month, 1);
+    endDate.setMonth(startDate.getMonth() + 1);
+
+    filter = { operationAt: { $gte: startDate, $lt: endDate }, userId };
+
+    // name, amount, operationAt, dueAt
+    let sort_types = ["name", "amount", "operationAt", "dueAt"];
+    if (!sort_types.includes(sort)) {
+      sort = "name";
+    }
+
+    console.log({ filter, sort, asc: asc ? 1 : -1 });
     const operation = await this.operationRepository.list({
       filter,
-      sort: sort === "dueDate" ? "dueDate" : "operationAt",
-      asc: asc ? 1 : -1,
+      sort,
+      asc: asc === 1 ? 1 : -1,
     });
-
+    console.log(operation);
     return operation;
   }
 }
