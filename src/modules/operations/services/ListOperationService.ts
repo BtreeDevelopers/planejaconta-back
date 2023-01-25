@@ -24,7 +24,6 @@ class ListOperationService {
     let sort = sortRaw?.toString();
     const asc = Number(ascRaw);
 
-    let filter;
     /*
     switch (Number(typeFilter)) {
       case TYPE_FILTERS.DATE:
@@ -57,6 +56,9 @@ class ListOperationService {
     //dataRef: 2023-01-01
     //orderBy: name|amount| operationAt|dueAt
     //asc: 0|1
+
+    let filterGasto;
+    let filterGanho;
     const dateSplited = valueFilter?.split("-");
 
     if (!dateSplited) {
@@ -72,7 +74,16 @@ class ListOperationService {
     const endDate = new Date(year, month, 1);
     endDate.setMonth(startDate.getMonth() + 1);
 
-    filter = { operationAt: { $gte: startDate, $lt: endDate }, userId };
+    filterGasto = {
+      classification: 0,
+      operationAt: { $gte: startDate, $lt: endDate },
+      userId,
+    };
+    filterGanho = {
+      classification: 1,
+      operationAt: { $gte: startDate, $lt: endDate },
+      userId,
+    };
 
     // name, amount, operationAt, dueAt
     let sort_types = ["name", "amount", "operationAt", "dueAt"];
@@ -80,13 +91,18 @@ class ListOperationService {
       sort = "name";
     }
 
-    console.log({ filter, sort, asc: asc ? 1 : -1 });
-    const operation = await this.operationRepository.list({
-      filter,
+    //op = 1 receita
+    const operationGasto = await this.operationRepository.list({
+      filter: filterGasto,
       sort,
       asc: asc === 1 ? 1 : -1,
     });
-    console.log(operation);
+    const operationGanho = await this.operationRepository.list({
+      filter: filterGanho,
+      sort,
+      asc: asc === 1 ? 1 : -1,
+    });
+    const operation = operationGasto.concat(operationGanho);
     return operation;
   }
 }
