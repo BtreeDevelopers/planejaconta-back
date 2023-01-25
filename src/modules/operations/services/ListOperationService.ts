@@ -94,7 +94,7 @@ class ListOperationService {
       const operationGasto = await this.operationRepository.list({
         filter: filterGasto,
         sort,
-        asc: asc === 1 ? 1 : -1,
+        asc: asc === 1 ? -1 : +1,
       });
       const operationGanho = await this.operationRepository.list({
         filter: filterGanho,
