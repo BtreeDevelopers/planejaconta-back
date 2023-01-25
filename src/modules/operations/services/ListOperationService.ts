@@ -74,41 +74,53 @@ class ListOperationService {
     const endDate = new Date(year, month, 1);
     endDate.setMonth(startDate.getMonth() + 1);
 
-    filterGasto = {
-      operationType: 0,
-      operationAt: { $gte: startDate, $lt: endDate },
-      userId,
-    };
-    filterGanho = {
-      operationType: 1,
-      operationAt: { $gte: startDate, $lt: endDate },
-      userId,
-    };
-
     // name, amount, operationAt, dueAt
     let sort_types = ["name", "amount", "operationAt", "dueAt"];
     if (!sort_types.includes(sort)) {
       sort = "name";
     }
 
-    //op = 1 receita
-    const operationGasto = await this.operationRepository.list({
-      filter: filterGasto,
-      sort,
-      asc: asc === 1 ? 1 : -1,
-    });
-    const operationGanho = await this.operationRepository.list({
-      filter: filterGanho,
-      sort,
-      asc: asc === 1 ? 1 : -1,
-    });
-    let operation;
-    if (asc === 1) {
-      operation = operationGasto.concat(operationGanho);
-    } else {
-      operation = operationGanho.concat(operationGasto);
+    if (sort === "amount") {
+      filterGasto = {
+        operationType: 0,
+        operationAt: { $gte: startDate, $lt: endDate },
+        userId,
+      };
+      filterGanho = {
+        operationType: 1,
+        operationAt: { $gte: startDate, $lt: endDate },
+        userId,
+      };
+      const operationGasto = await this.operationRepository.list({
+        filter: filterGasto,
+        sort,
+        asc: asc === 1 ? 1 : -1,
+      });
+      const operationGanho = await this.operationRepository.list({
+        filter: filterGanho,
+        sort,
+        asc: asc === 1 ? 1 : -1,
+      });
+      let operation;
+      if (asc === 1) {
+        operation = operationGasto.concat(operationGanho);
+      } else {
+        operation = operationGanho.concat(operationGasto);
+      }
+
+      return operation;
     }
 
+    const filter = {
+      operationAt: { $gte: startDate, $lt: endDate },
+      userId,
+    };
+
+    const operation = await this.operationRepository.list({
+      filter: filter,
+      sort,
+      asc: asc === 1 ? 1 : -1,
+    });
     return operation;
   }
 }
