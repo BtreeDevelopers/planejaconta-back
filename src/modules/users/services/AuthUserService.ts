@@ -69,6 +69,8 @@ class AuthUserService {
       nome: user.nome,
       email: user.email,
       imagemUrl: user.imagemUrl,
+      tema:user.tema,
+      idioma:user.idioma
     };
   }
 }
