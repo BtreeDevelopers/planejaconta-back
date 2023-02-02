@@ -25,8 +25,10 @@ class CronJobOperationService {
         : new Date().getFullYear();
     const month = new Date().getMonth() == 1 ? 12 : new Date().getMonth() - 1;
 
-    const startDate = new Date(year, month, 1);
-    const endDate = new Date(year, month + 1, 0);
+    //const startDate = new Date(year, month, 1);
+    //const endDate = new Date(year, month + 1, 0);
+    const startDate = new Date(Date.UTC(year, month, 1, 0, 0, 0));
+    const endDate = new Date(Date.UTC(year, month + 1, 0, 0, 0, 0));
 
     //endDate.setMonth(startDate.getMonth() + 1);
 
