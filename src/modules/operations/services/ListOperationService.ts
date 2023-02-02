@@ -71,8 +71,8 @@ class ListOperationService {
     const year = Number(dateSplited[0]);
     const month = Number(dateSplited[1]) - 1;
     const startDate = new Date(year, month, 1);
-    const endDate = new Date(year, month, 1);
-    endDate.setMonth(startDate.getMonth() + 1);
+    const endDate = new Date(year, month + 1, 0);
+    //endDate.setMonth(startDate.getMonth() + 1);
 
     // name, amount, operationAt, dueAt
     let sort_types = ["name", "amount", "operationAt", "dueAt"];
