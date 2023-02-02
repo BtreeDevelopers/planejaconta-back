@@ -41,7 +41,7 @@ class CronJobOperationService {
       asc: asc ? 1 : -1,
     });
     const createOperationService = container.resolve(CreateOperationService);
-    console.log(operation);
+    //console.log(operation);
 
     for await (const element of operation) {
       const dateOpAt = element.operationAt;
