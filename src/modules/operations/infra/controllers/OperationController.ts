@@ -117,7 +117,7 @@ class OperationController {
       _id,
     });
 
-    return response.status(200).end();
+    return response.status(200).json({ message: "Deleted with sucess" });
   }
 }
 

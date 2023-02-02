@@ -101,16 +101,15 @@ export default class OperationRepository implements IOperationRepository {
     }
   }
 
-  async delete({ _id }: IDeleteOperationDTO): Promise<void | null> {
+  async delete({ _id }: IDeleteOperationDTO): Promise<any> {
     try {
-      const operationToDelete = await Operation.findByIdAndDelete({
-        _id,
-      });
-
-      if (!operationToDelete) {
-        console.log("Operation not find by Id");
-        return null;
+      if (!_id || _id === "") {
+        console.log("Operation not find by Id " + _id);
+        throw new AppError(`Operation not find by Id`);
       }
+      const operationToDelete = await Operation.findByIdAndDelete(_id);
+      console.log({ operationToDelete, _id });
+      return operationToDelete;
     } catch (error) {
       console.error("Error finding Operation by Id and Delete\nError: ", error);
 
