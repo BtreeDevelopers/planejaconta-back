@@ -24,39 +24,6 @@ class ListOperationService {
     let sort = sortRaw?.toString();
     const asc = Number(ascRaw);
 
-    /*
-    switch (Number(typeFilter)) {
-      case TYPE_FILTERS.DATE:
-        break;
-
-      case TYPE_FILTERS.OPERATION_TYPE:
-        const valueOperationType = Number(valueFilter);
-
-        if (valueOperationType !== 0 && valueOperationType !== 1) {
-          throw new AppError("valueFilter must be 0 or 1.", 400);
-        }
-        filter = { operationType: valueOperationType };
-
-        break;
-      case TYPE_FILTERS.CLASSIFICATION:
-        const valueClassification = Number(valueFilter);
-
-        if (valueClassification !== 0 && valueClassification !== 1) {
-          throw new AppError("valueFilter must be 0 or 1.", 400);
-        }
-
-        filter = { classification: valueClassification };
-        break;
-
-      default:
-        filter = { userId };
-        break;
-    }*/
-
-    //dataRef: 2023-01-01
-    //orderBy: name|amount| operationAt|dueAt
-    //asc: 0|1
-
     let filterGasto;
     let filterGanho;
     const dateSplited = valueFilter?.split("-");
