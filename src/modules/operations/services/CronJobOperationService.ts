@@ -32,7 +32,7 @@ class CronJobOperationService {
 
     filter = {
       classification: 0,
-      operationAt: { $gte: startDate, $lt: endDate },
+      operationAt: { $gte: startDate, $lte: endDate },
     };
 
     const operation = await this.operationRepository.list({
