@@ -10,4 +10,6 @@ export interface IAuthUserDTO {
   email: string;
   bauth_token: string;
   imagemUrl: string;
+  tema:string;
+  idioma:string;
 }
