@@ -26,9 +26,9 @@ class CronJobOperationService {
     const month = new Date().getMonth() == 1 ? 12 : new Date().getMonth() - 1;
 
     const startDate = new Date(year, month, 1);
-    const endDate = new Date(year, month, 1);
+    const endDate = new Date(year, month + 1, 0);
 
-    endDate.setMonth(startDate.getMonth() + 1);
+    //endDate.setMonth(startDate.getMonth() + 1);
 
     filter = {
       classification: 0,
