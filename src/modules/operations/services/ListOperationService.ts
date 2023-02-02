@@ -73,7 +73,6 @@ class ListOperationService {
     const startDate = new Date(year, month, 1);
     const endDate = new Date(year, month + 1, 0);
 
-    // name, amount, operationAt, dueAt
     let sort_types = ["name", "amount", "operationAt", "dueAt"];
     if (!sort_types.includes(sort)) {
       sort = "name";
