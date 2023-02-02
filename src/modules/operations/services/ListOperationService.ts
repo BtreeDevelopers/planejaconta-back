@@ -48,12 +48,12 @@ class ListOperationService {
     if (sort === "amount") {
       filterGasto = {
         operationType: 0,
-        operationAt: { $gte: startDate, $lt: endDate },
+        operationAt: { $gte: startDate, $lte: endDate },
         userId,
       };
       filterGanho = {
         operationType: 1,
-        operationAt: { $gte: startDate, $lt: endDate },
+        operationAt: { $gte: startDate, $lte: endDate },
         userId,
       };
       const operationGasto = await this.operationRepository.list({
@@ -77,7 +77,7 @@ class ListOperationService {
     }
 
     const filter = {
-      operationAt: { $gte: startDate, $lt: endDate },
+      operationAt: { $gte: startDate, $lte: endDate },
       userId,
     };
 
