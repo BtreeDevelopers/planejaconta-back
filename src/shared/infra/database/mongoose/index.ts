@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
-
-mongoose.connect(
-    `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_PATH}`
-  );
-  
+const { MONGO_USER, MONGO_PASSWORD, MONGO_PATH } = process.env;
+mongoose.connect(`${MONGO_PATH}`,{
+  auth:{
+    password:MONGO_PASSWORD,
+    username:MONGO_USER
+  },
+  authSource:'admin'
+});
