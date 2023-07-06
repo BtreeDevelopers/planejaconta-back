@@ -2671,10 +2671,10 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
-"tsyringe@^4.7.0":
-  "integrity" "sha512-ncFDM1jTLsok4ejMvSW5jN1VGPQD48y2tfAR0pdptWRKYX4bkbqPt92k7KJ5RFJ1KV36JEs/+TMh7I6OUgj74g=="
-  "resolved" "https://registry.npmjs.org/tsyringe/-/tsyringe-4.7.0.tgz"
-  "version" "4.7.0"
+"tsyringe@^4.8.0":
+  "integrity" "sha512-YB1FG+axdxADa3ncEtRnQCFq/M0lALGLxSZeVNbTU8NqhOVc51nnv2CISTcvc1kyv6EGPtXVr0v6lWeDxiijOA=="
+  "resolved" "https://registry.npmjs.org/tsyringe/-/tsyringe-4.8.0.tgz"
+  "version" "4.8.0"
   dependencies:
     "tslib" "^1.9.3"
 

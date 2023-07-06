@@ -24,7 +24,7 @@ app.use(HandleError.handleError);
 cron.schedule("0 1 1 */1 *", () => {
   const operationController = new OperationController();
   operationController.CronJob();
-  console.log("At 01:00 on day-of-month 2 in every month.");
+  console.log("At 01:00 on day-of-month 1 in every month.");
 });
 
 module.exports = app;

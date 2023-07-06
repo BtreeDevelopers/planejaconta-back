@@ -19,18 +19,28 @@ class CronJobOperationService {
 
     let filter;
 
-    const year =
-      new Date().getMonth() == 1
-        ? new Date().getFullYear() - 1
-        : new Date().getFullYear();
-    const month = new Date().getMonth() == 1 ? 12 : new Date().getMonth() - 1;
+    // Obtém a data atual
+    const hoje = new Date();
 
-    //const startDate = new Date(year, month, 1);
-    //const endDate = new Date(year, month + 1, 0);
-    const startDate = new Date(Date.UTC(year, month, 1, 0, 0, 0));
-    const endDate = new Date(Date.UTC(year, month + 1, 0, 0, 0, 0));
+    // Obtém o primeiro dia do mês atual
+    const primeiroDiaMesAtual = new Date(
+      hoje.getFullYear(),
+      hoje.getMonth(),
+      1
+    );
 
-    //endDate.setMonth(startDate.getMonth() + 1);
+    // Subtrai um dia para obter o último dia do mês anterior
+    const ultimoDiaMesAnterior = new Date(primeiroDiaMesAtual.getTime() - 1);
+
+    // Obtém o primeiro dia do mês anterior
+    const primeiroDiaAnterior = new Date(
+      ultimoDiaMesAnterior.getFullYear(),
+      ultimoDiaMesAnterior.getMonth(),
+      1
+    );
+
+    const startDate = primeiroDiaAnterior;
+    const endDate = ultimoDiaMesAnterior;
 
     filter = {
       classification: 0,
