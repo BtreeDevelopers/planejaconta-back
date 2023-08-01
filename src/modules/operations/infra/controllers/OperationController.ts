@@ -3,6 +3,7 @@ import CronJobOperationService from "@modules/operations/services/CronJobOperati
 import DeleteOperationService from "@modules/operations/services/DeleteOperationService";
 import HardDeleteOperationService from "@modules/operations/services/HardDeleteOperationService";
 import ListOperationService from "@modules/operations/services/ListOperationService";
+import SumOperationOperationService from "@modules/operations/services/SumOperationService";
 import UpdateOperationService from "@modules/operations/services/UpdateOperationService";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
@@ -43,6 +44,11 @@ class OperationController {
     const operations = await cronOperationService.execute({});
 
     return true;
+  }
+  public async SUMJOB() {
+    const sumOperationService = container.resolve(SumOperationOperationService);
+    const operations = await sumOperationService.execute({});
+    return operations;
   }
 
   public async list(request: Request, response: Response) {

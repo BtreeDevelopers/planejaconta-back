@@ -3,6 +3,8 @@ import {
   IUpdateOperationServiceDTO,
 } from "@modules/operations/dtos/Operation";
 import {
+  IAggregateOperationDTO,
+  ICreateOperation2DTO,
   ICreateOperationDTO,
   IDeleteOperationDTO,
   IHardDeleteOperationDTO,
@@ -23,6 +25,8 @@ export default interface IOperationRepository {
   }: ICreateOperationDTO): Promise<IOperationDTO>;
 
   list({ filter, sort, asc }: IListOperationDTO): Promise<IOperationDTO[]>;
+  aggregate({ filter }: IAggregateOperationDTO): Promise<IOperationDTO[]>;
+  createMany(data: ICreateOperation2DTO[]): Promise<IOperationDTO[]>;
 
   update({
     userId,

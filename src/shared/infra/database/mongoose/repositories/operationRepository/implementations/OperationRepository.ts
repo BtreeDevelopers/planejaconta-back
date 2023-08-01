@@ -5,6 +5,7 @@ import {
 import AppError from "@shared/errors/AppError";
 import UUID from "@shared/utils/uuid";
 import {
+  ICreateOperation2DTO,
   ICreateOperationDTO,
   IDeleteOperationDTO,
   IHardDeleteOperationDTO,
@@ -13,6 +14,8 @@ import {
 } from "../dtos/OperationDTO";
 import IOperationRepository from "../models/IOperationRepository";
 import Operation from "../schemas/Operation";
+import CreateOperationService from "@modules/operations/services/CreateOperationService";
+import { container } from "tsyringe";
 
 export default class OperationRepository implements IOperationRepository {
   async create({
@@ -40,12 +43,89 @@ export default class OperationRepository implements IOperationRepository {
     return operation;
   }
 
+  async createMany(data: ICreateOperation2DTO[]): Promise<IOperationDTO[]> {
+    return Operation.insertMany(data);
+  }
   async list({
     filter,
     sort,
     asc,
   }: IListOperationDTO): Promise<IOperationDTO[]> {
     const operations = await Operation.find(filter).sort({ [sort]: asc });
+
+    return operations;
+  }
+  /**
+  {
+        $group: {
+          _id: "$userId",
+          totalMesPassado: {
+            $sum: {
+              $cond: [
+                { $eq: ["$operationType", 1] },
+                "$amount",
+                { $multiply: ["$amount", -1] },
+              ],
+            },
+          },
+        },
+      },
+ */
+  async aggregate({ filter }: IListOperationDTO): Promise<IOperationDTO[]> {
+    const listUser = await Operation.find()
+      .sort({ userId: 1 })
+      .distinct("userId");
+
+    const operations = await Operation.aggregate([
+      {
+        $match: {
+          $and: [
+            { userId: { $in: listUser } },
+            {
+              operationAt: {
+                $gte: new Date("2023-06-01T00:00:00Z"),
+                $lte: new Date("2023-06-30T23:59:59Z"),
+              },
+            },
+          ],
+        },
+      },
+      {
+        $group: {
+          _id: "$userId",
+          totalMesPassado: {
+            $sum: {
+              $cond: [
+                { $eq: ["$operationType", 1] },
+                "$amount",
+                { $multiply: ["$amount", -1] },
+              ],
+            },
+          },
+        },
+      },
+    ]);
+    console.log(operations);
+
+    const createOperationService = container.resolve(CreateOperationService);
+    //console.log(operation);
+
+    for await (const element of operations) {
+      if (element.totalMesPassado !== 0) {
+        const dateOpAt = new Date();
+        let valorABS = Math.abs(element.totalMesPassado);
+        await createOperationService.execute({
+          userId: element._id,
+          operationType: element.totalMesPassado > 0 ? 1 : 0,
+          name: "Saldo Mês Anterior",
+          classification: 1,
+          type: "Outro(s)",
+          amount: valorABS,
+          operationAt: dateOpAt,
+          dueAt: undefined,
+        });
+      }
+    }
 
     return operations;
   }
