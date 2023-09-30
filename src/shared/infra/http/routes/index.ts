@@ -1,4 +1,5 @@
 import callRoutes from "@modules/calls/infra/routes";
+import newsletterRoutes from "@modules/newsletter/infra/routes";
 import operationRoutes from "@modules/operations/infra/routes";
 import userRoutes from "@modules/users/infra/routes";
 import { Router, json, response } from "express";
@@ -9,6 +10,7 @@ const routes = Router();
 
 routes.use("/call", callRoutes);
 routes.use("/user", userRoutes);
+routes.use("/newsletter", newsletterRoutes);
 routes.use("/operation", operationRoutes);
 
 routes.get("/", (_request, response) =>
