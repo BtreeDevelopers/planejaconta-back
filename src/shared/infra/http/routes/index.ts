@@ -1,3 +1,4 @@
+import callRoutes from "@modules/calls/infra/routes";
 import operationRoutes from "@modules/operations/infra/routes";
 import userRoutes from "@modules/users/infra/routes";
 import { Router, json, response } from "express";
@@ -6,6 +7,7 @@ import OperationController from "@modules/operations/infra/controllers/Operation
 
 const routes = Router();
 
+routes.use("/call", callRoutes);
 routes.use("/user", userRoutes);
 routes.use("/operation", operationRoutes);
 
