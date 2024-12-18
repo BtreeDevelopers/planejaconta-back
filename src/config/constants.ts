@@ -6,9 +6,11 @@ const JWT_PRIVATE_KEY = process.env.JWT_PRIVATE_KEY || "";
 const JWT_PUBLIC_KEY = process.env.JWT_PUBLIC_KEY || "";
 const MJ_APIKEY_PUBLIC = process.env.MJ_APIKEY_PUBLIC || "";
 const MJ_APIKEY_PRIVATE = process.env.MJ_APIKEY_PRIVATE || "";
+const SENHASUPERSECRETA = process.env.SENHASUPERSECRETA || "";
+
 
 export {
-
+  SENHASUPERSECRETA,
   MONGO_PATH,
   MONGO_USER,
   MONGO_PASSWORD,
