@@ -1,0 +1,34 @@
+services:
+  app:
+    build: .
+    ports:
+      - "2312:3001"
+    environment:
+      - JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY}
+      - JWT_PUBLIC_KEY=${JWT_PUBLIC_KEY}
+      - MJ_APIKEY_PRIVATE=${MJ_APIKEY_PRIVATE}
+      - MJ_APIKEY_PUBLIC=${MJ_APIKEY_PUBLIC}
+      - AUTH_URL=${AUTH_URL}
+      - ALLOWED_APP=${ALLOWED_APP}
+      - MONGO_PATH=${MONGO_PATH}
+      - MONGO_USER=${MONGO_USER}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - SENHASUPERSECRETA=${SENHASUPERSECRETA}
+    depends_on:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  mongo:
+    image: mongo
+    ports:
+      - "27025:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
