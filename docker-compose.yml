@@ -2,7 +2,7 @@ services:
   app:
     build: .
     ports:
-      - "2312:3001"
+      - "2312:3000"
     environment:
       - JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY}
       - JWT_PUBLIC_KEY=${JWT_PUBLIC_KEY}
